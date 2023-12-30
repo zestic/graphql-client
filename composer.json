@@ -1,5 +1,5 @@
 {
-  "name": "euautomation/graphql-client",
+  "name": "zestic/graphql-client",
   "description": "A simple client to help execute queries and mutations across GraphQL",
   "keywords": ["graphql", "client", "php"],
   "license": "MIT",
