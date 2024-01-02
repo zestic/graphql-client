@@ -7,7 +7,7 @@ A simple package to consume GraphQL APIs.
 
 ## Installation
 
-`composer require euautomation/graphql-client`
+`composer require zestic/graphql-client`
 
 -----------------------
 
