@@ -7,14 +7,14 @@ A simple package to consume GraphQL APIs.
 
 ## Installation
 
-`composer require zestic/graphql-client`
+`composer require zestic/graphql-simple-client`
 
 -----------------------
 
 
 ## Usage
 
-Create an instance of `EUAutomation\GraphQL\Client`:
+Create an instance of `GraphQL\SimpleClient\Client`:
 
 ```
 new Client($graphQLURL);
