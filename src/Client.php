@@ -1,62 +1,34 @@
 <?php
 
-namespace EUAutomation\GraphQL;
+declare(strict_types=1);
 
-use EUAutomation\GraphQL\Exceptions\GraphQLInvalidResponse;
+namespace GraphQL\SimpleClient;
+
+use GraphQL\SimpleClient\Exception\GraphQLInvalidResponse;
+use GuzzleHttp\Client as GuzzleClient;
+use Psr\Http\Message\ResponseInterface;
 
 class Client
 {
-    /**
-     * @var string
-     */
-    protected $url;
+    protected GuzzleClient $guzzle;
 
-    /**
-     * @var \GuzzleHttp\Client
-     */
-    protected $guzzle;
-
-    /**
-     * Client constructor.
-     *
-     * @param string $url
-     */
-    public function __construct($url)
-    {
-        $this->url = $url;
-        $this->guzzle = new \GuzzleHttp\Client();
+    public function __construct(
+        protected string $url,
+    ) {
+        $this->guzzle = new GuzzleClient();
     }
 
-    /**
-     * Set the URL to query against
-     *
-     * @param string $url
-     */
-    public function setUrl($url)
+    public function setUrl(string $url): void
     {
         $this->url = $url;
     }
 
-    /**
-     * Set an instance of guzzle to use
-     *
-     * @param \GuzzleHttp\Client $guzzle
-     */
-    public function setGuzzle(\GuzzleHttp\Client $guzzle)
+    public function setGuzzle(GuzzleClient $guzzle): void
     {
         $this->guzzle = $guzzle;
     }
 
-    /**
-     * Make a GraphQL Request and get the raw guzzle response.
-     *
-     * @param string $query
-     * @param array $variables
-     * @param array $headers
-     *
-     * @return mixed|\Psr\Http\Message\ResponseInterface
-     */
-    public function raw($query, $variables = [], $headers = [])
+    public function raw(string $query, array $variables = [], array $headers = []): ResponseInterface
     {
         return $this->guzzle->request('POST', $this->url, [
             'json' => [
@@ -67,19 +39,7 @@ class Client
         ]);
     }
 
-    /**
-     * Make a GraphQL Request and get the response body in JSON form.
-     *
-     * @param string $query
-     * @param array $variables
-     * @param array $headers
-     * @param bool $assoc
-     *
-     * @return mixed
-     *
-     * @throws GraphQLInvalidResponse
-     */
-    public function json($query, $variables = [], $headers = [], $assoc = false)
+    public function json(string $query, array $variables = [], array $headers = [], bool $assoc = true): array|\stdClass
     {
         $response = $this->raw($query, $variables, $headers);
 
@@ -92,18 +52,7 @@ class Client
         return $responseJson;
     }
 
-    /**
-     * Make a GraphQL Request and get the guzzle response .
-     *
-     * @param string $query
-     * @param array $variables
-     * @param array $headers
-     *
-     * @return Response
-     *
-     * @throws \Exception
-     */
-    public function response($query, $variables = [], $headers = [])
+    public function response(string $query, array $variables = [], array $headers = []): Response
     {
         $response = $this->json($query, $variables, $headers);
 

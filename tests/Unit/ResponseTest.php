@@ -1,6 +1,6 @@
 <?php
 
-use EUAutomation\GraphQL\Response;
+use GraphQL\SimpleClient\Response;
 
 beforeEach(function () {
 });

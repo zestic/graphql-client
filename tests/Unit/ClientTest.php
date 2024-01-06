@@ -1,8 +1,8 @@
 <?php
 
-use EUAutomation\GraphQL\Client;
-use EUAutomation\GraphQL\Exceptions\GraphQLInvalidResponse;
-use EUAutomation\GraphQL\Response;
+use GraphQL\SimpleClient\Client;
+use GraphQL\SimpleClient\Exception\GraphQLInvalidResponse;
+use GraphQL\SimpleClient\Response;
 
 test('client returns raw', function () {
     $data = '{"data":{"One":{"id":"1","name":"One Name","translations":[{"id":"1","code":"sv","name":"Ett Namn"},' .
@@ -42,7 +42,7 @@ test('client returns json', function () {
     $client->setGuzzle($guzzleClient);
     $response = $client->json('');
 
-    expect($response)->toEqual(json_decode($data));
+    expect($response)->toEqual(json_decode($data, true));
 });
 
 test('client returns invalid json exception', function () {

@@ -1,6 +1,8 @@
 <?php
 
-namespace EUAutomation\GraphQL;
+declare(strict_types=1);
+
+namespace GraphQL\SimpleClient;
 
 class Response
 {
